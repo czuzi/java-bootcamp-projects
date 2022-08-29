@@ -55,39 +55,33 @@ public class MeetingRoomController {
 
 	private void handleChoose(int choose) {
 		switch (choose) {
-			case 1:
-				printMeetingRoomNames(office.getMeetingRooms());
-				break;
-			case 2:
-				printMeetingRoomNames(office.getMeetingRoomsInReverseOrder());
-				break;
-			case 3:
+			case 1 -> printMeetingRoomNames(office.getMeetingRooms());
+			case 2 -> printMeetingRoomNames(office.getMeetingRoomsInReverseOrder());
+			case 3 -> {
 				System.out.println("Type 1 to list every odd numbered meeting room, and 2 to every even");
 				int evenOrOdd = sc.nextInt();
 				sc.nextLine();
 				printMeetingRoomNames(office.getEverySecondMeetingRoom(evenOrOdd));
-				break;
-			case 4:
-				printMeetingRooms(office.getMeetingRooms());
-				break;
-			case 5:
+			}
+			case 4 -> printMeetingRooms(office.getMeetingRooms());
+			case 5 -> {
 				System.out.println("Enter the name of the meeting room you:");
 				String nameToSearch = sc.nextLine();
 				printMeetingRoom(office.getMeetingRoomWithGivenName(nameToSearch));
-				break;
-			case 6:
+			}
+			case 6 -> {
 				System.out.println("Enter a part of a name you want to search for:");
 				String namePartToSearch = sc.nextLine();
 				printMeetingRooms(office.getMeetingRoomsWithGivenNamePart(namePartToSearch));
-				break;
-			case 7:
+			}
+			case 7 -> {
 				System.out.println("Enter the minimum area to list meeting rooms:");
 				int areaToFilter = sc.nextInt();
 				sc.nextLine();
 				printMeetingRooms(office.getMeetingRoomsWithAreaLargerThan(areaToFilter));
-				break;
-			case 8:
-				System.out.println("auf Wiedersehen");
+			}
+			case 8 -> System.out.println("auf Wiedersehen");
+			default -> System.out.println("Invalid option");
 		}
 	}
 
