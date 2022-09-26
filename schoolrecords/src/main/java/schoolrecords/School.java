@@ -63,7 +63,7 @@ public class School {
 	}
 
 	public Tutor findTutorByName(String tutorName) {
-		for (Tutor tutor: tutors) {
+		for (Tutor tutor : tutors) {
 			if (tutor.getName().equals(tutorName)) {
 				return tutor;
 			}
@@ -72,7 +72,7 @@ public class School {
 	}
 
 	public Subject findSubjectByName(String subjectName) {
-		for (Subject subject: subjects) {
+		for (Subject subject : subjects) {
 			if (subject.getName().equals(subjectName)) {
 				return subject;
 			}

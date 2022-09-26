@@ -17,21 +17,21 @@ class ClassRecordsTest {
 	void setUp() {
 		School school = new School(Path.of("src/test/resources/school.csv"));
 		classRecords = new ClassRecords("Fourth Grade A", new Random(5));
-		classRecords.addStudent("Kovács Rita");
-		classRecords.addStudent("Nagy Béla");
-		classRecords.addStudent("Varga Márton");
-		Student firstStudent = classRecords.findStudentByName("Kovács Rita");
-		firstStudent.addGrading(new Mark(MarkType.A, school.findSubjectByName("földrajz"), school.findTutorByName("Dienes Irén")));
-		firstStudent.addGrading(new Mark(MarkType.C, school.findSubjectByName("matematika"), school.findTutorByName("Szabó László")));
-		firstStudent.addGrading(new Mark(MarkType.D, school.findSubjectByName("földrajz"), school.findTutorByName("Dienes Irén")));
-		Student secondStudent = classRecords.findStudentByName("Nagy Béla");
-		secondStudent.addGrading(new Mark(MarkType.A, school.findSubjectByName("biológia"), school.findTutorByName("Dienes Irén")));
-		secondStudent.addGrading(new Mark(MarkType.C, school.findSubjectByName("matematika"), school.findTutorByName("Tóth Ilona")));
-		secondStudent.addGrading(new Mark(MarkType.D, school.findSubjectByName("ének-zene"), school.findTutorByName("Németh Lili")));
-		Student thirdStudent = classRecords.findStudentByName("Varga Márton");
-		thirdStudent.addGrading(new Mark(MarkType.A, school.findSubjectByName("fizika"), school.findTutorByName("Kiss József")));
-		thirdStudent.addGrading(new Mark(MarkType.C, school.findSubjectByName("kémia"), school.findTutorByName("Kiss József")));
-		thirdStudent.addGrading(new Mark(MarkType.D, school.findSubjectByName("földrajz"), school.findTutorByName("Tóth Ilona")));
+		classRecords.addStudent("Kovacs Rita");
+		classRecords.addStudent("Nagy Bela");
+		classRecords.addStudent("Varga Marton");
+		Student firstStudent = classRecords.findStudentByName("Kovacs Rita");
+		firstStudent.addGrading(new Mark(MarkType.A, school.findSubjectByName("foldrajz"), school.findTutorByName("Dienes Iren")));
+		firstStudent.addGrading(new Mark(MarkType.C, school.findSubjectByName("matematika"), school.findTutorByName("Szabo Laszlo")));
+		firstStudent.addGrading(new Mark(MarkType.D, school.findSubjectByName("foldrajz"), school.findTutorByName("Dienes Iren")));
+		Student secondStudent = classRecords.findStudentByName("Nagy Bela");
+		secondStudent.addGrading(new Mark(MarkType.A, school.findSubjectByName("biologia"), school.findTutorByName("Dienes Iren")));
+		secondStudent.addGrading(new Mark(MarkType.C, school.findSubjectByName("matematika"), school.findTutorByName("Toth Ilona")));
+		secondStudent.addGrading(new Mark(MarkType.D, school.findSubjectByName("enek-zene"), school.findTutorByName("Nemeth Lili")));
+		Student thirdStudent = classRecords.findStudentByName("Varga Marton");
+		thirdStudent.addGrading(new Mark(MarkType.A, school.findSubjectByName("fizika"), school.findTutorByName("Kiss Jozsef")));
+		thirdStudent.addGrading(new Mark(MarkType.C, school.findSubjectByName("kemia"), school.findTutorByName("Kiss Jozsef")));
+		thirdStudent.addGrading(new Mark(MarkType.D, school.findSubjectByName("foldrajz"), school.findTutorByName("Toth Ilona")));
 	}
 
 	@Test
@@ -53,7 +53,7 @@ class ClassRecordsTest {
 
 	@Test
 	void testAddStudentAlreadyExists() {
-		assertFalse(classRecords.addStudent("Nagy Béla"));
+		assertFalse(classRecords.addStudent("Nagy Bela"));
 	}
 
 	@Test
@@ -65,12 +65,12 @@ class ClassRecordsTest {
 
 	@Test
 	void testRemoveStudent() {
-		assertTrue(classRecords.removeStudent("Nagy Béla"));
+		assertTrue(classRecords.removeStudent("Nagy Bela"));
 	}
 
 	@Test
 	void testRemoveStudentDoesNotExists() {
-		assertFalse(classRecords.removeStudent("Nagy Klára"));
+		assertFalse(classRecords.removeStudent("Nagy Klara"));
 	}
 
 	@Test
@@ -82,7 +82,7 @@ class ClassRecordsTest {
 
 	@Test
 	void testCalculateClassAverageBySubject() {
-		assertEquals(2.75, classRecords.calculateClassAverageBySubject("földrajz"));
+		assertEquals(2.75, classRecords.calculateClassAverageBySubject("foldrajz"));
 	}
 
 	@Test
@@ -94,7 +94,7 @@ class ClassRecordsTest {
 
 	@Test
 	void testFindStudentByName() {
-		assertEquals("Kovács Rita", classRecords.findStudentByName("Kovács Rita").getName());
+		assertEquals("Kovacs Rita", classRecords.findStudentByName("Kovacs Rita").getName());
 	}
 
 	@Test
@@ -119,7 +119,7 @@ class ClassRecordsTest {
 
 	@Test
 	void testRepetition() {
-		assertEquals("Varga Márton", classRecords.repetition().getName());
+		assertEquals("Varga Marton", classRecords.repetition().getName());
 	}
 
 	@Test
@@ -132,9 +132,9 @@ class ClassRecordsTest {
 	@Test
 	void testListSubjectResults() {
 		//Given
-		List<SubjectResult> list = classRecords.listSubjectResults("földrajz");
+		List<SubjectResult> list = classRecords.listSubjectResults("foldrajz");
 		//Then
-		assertEquals("Kovács Rita", list.get(0).getStudentName());
+		assertEquals("Kovacs Rita", list.get(0).getStudentName());
 		assertEquals(3.5, list.get(0).getSubjectAverage());
 		assertEquals(2, list.size());
 	}
@@ -148,6 +148,6 @@ class ClassRecordsTest {
 
 	@Test
 	void testListStudentNames() {
-		assertEquals("Kovács Rita, Nagy Béla, Varga Márton", classRecords.listStudentNames());
+		assertEquals("Kovacs Rita, Nagy Bela, Varga Marton", classRecords.listStudentNames());
 	}
 }

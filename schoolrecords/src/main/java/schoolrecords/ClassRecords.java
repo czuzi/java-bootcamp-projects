@@ -11,6 +11,7 @@ public class ClassRecords {
 	private Random random;
 
 	public ClassRecords(String className, Random random) {
+		validate(className);
 		this.className = className;
 		this.random = random;
 	}
@@ -35,47 +36,74 @@ public class ClassRecords {
 		}
 	}
 
-	public boolean removeStudent(String studentName) {
-		students.removeIf(student -> studentName.equals(student.getName()));
-		return false;
+	public boolean removeStudent(String name) {
+		validate(name);
+		Student foundStudent = null;
+		for (Student student : students) {
+			if (student.getName().equals(name)) {
+				foundStudent = student;
+			}
+		}
+		return students.remove(foundStudent);
 	}
 
 	public double calculateClassAverageBySubject(String subjectName) {
-		double sum = 0;
-		double count = 0;
-		for (Student student: students) {
-			sum += student.calculateSubjectAverage(subjectName);
-			count++;
+		validate(subjectName);
+		double average = 0.0;
+		int count = 0;
+		for (Student student : students) {
+			double studentAverage = student.calculateSubjectAverage(subjectName);
+			if (studentAverage != 0) {
+				average += studentAverage;
+				count++;
+			}
 		}
-		return sum / count;
+		average = average / count;
+		return Math.round(average * 100) / 100.0;
 	}
 
-	public Student findStudentByName(String studentName) {
-		for (Student student: students) {
-			if (studentName.equals(student.getName())) {
+	public Student findStudentByName(String name) {
+		validate(name);
+		if (students.isEmpty()) {
+			throw new IllegalArgumentException("No students to search!");
+		}
+		for (Student student : students) {
+			if (student.getName().equals(name)) {
 				return student;
 			}
 		}
-		throw new IllegalArgumentException("Invalid name");
+		throw new IllegalArgumentException("No student found with name: " + name);
 	}
 
 	public Student repetition() {
-		return students.get(random.nextInt(students.size()));
+		if (students.isEmpty()) {
+			throw new IllegalArgumentException("No students to select for repetition!");
+		}
+		int index = random.nextInt(students.size());
+		return students.get(index);
 	}
 
 	public List<SubjectResult> listSubjectResults(String subjectName) {
+		validate(subjectName);
 		List<SubjectResult> results = new ArrayList<>();
-		for (Student student: students) {
-			results.add(new SubjectResult(student.getName(), student.calculateSubjectAverage(subjectName)));
+		for (Student student : students) {
+			double studentAverage = student.calculateSubjectAverage(subjectName);
+			if (studentAverage != 0) {
+				SubjectResult result = new SubjectResult(student.getName(), studentAverage);
+				results.add(result);
+			}
 		}
 		return results;
 	}
 
 	public String listStudentNames() {
-		StringBuilder sb = new StringBuilder();
-		for (Student student: students) {
-			sb.append(student.getName());
+		StringBuilder studentNames = new StringBuilder();
+		for (Student student : students) {
+			studentNames.append(student.getName());
+			if (student != students.get(students.size() - 1)) {
+				studentNames.append(", ");
+			}
 		}
-		return sb.toString();
+		return studentNames.toString();
 	}
 }
