@@ -1,5 +1,6 @@
 package catalog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AudioBook implements LibraryItem {
@@ -10,10 +11,26 @@ public class AudioBook implements LibraryItem {
 	private int length;
 
 	public AudioBook(String title, List<String> authors, List<String> performers, int length) {
+		validate(title, authors, performers, length);
 		this.title = title;
 		this.authors = authors;
 		this.performers = performers;
 		this.length = length;
+	}
+
+	private void validate(String title, List<String> authors, List<String> performers, int length) {
+		if (Validators.isBlank(title)) {
+			throw new IllegalArgumentException("Empty title");
+		}
+		if (Validators.isEmpty(authors)) {
+			throw new IllegalArgumentException("No author");
+		}
+		if (Validators.isEmpty(performers)) {
+			throw new IllegalArgumentException("No performer");
+		}
+		if (length < 1) {
+			throw new IllegalArgumentException("Illegal length: " + length);
+		}
 	}
 
 	public int getLength() {
@@ -22,12 +39,15 @@ public class AudioBook implements LibraryItem {
 
 	@Override
 	public List<String> getContributors() {
-		return null;
+		List<String> contributors = new ArrayList<>();
+		contributors.addAll(authors);
+		contributors.addAll(performers);
+		return contributors;
 	}
 
 	@Override
 	public String getTitle() {
-		return null;
+		return title;
 	}
 
 	@Override
@@ -37,6 +57,7 @@ public class AudioBook implements LibraryItem {
 
 	@Override
 	public boolean isAudio() {
-		return false;
+		return true;
 	}
+
 }

@@ -9,6 +9,7 @@ public class Book implements LibraryItem {
 	private List<String> authors;
 
 	public Book(String title, int numberOfPages, List<String> authors) {
+		validate(title, numberOfPages, authors);
 		this.title = title;
 		this.numberOfPages = numberOfPages;
 		this.authors = authors;
@@ -18,19 +19,31 @@ public class Book implements LibraryItem {
 		return numberOfPages;
 	}
 
+	private void validate(String title, int numberOfPages, List<String> authors) {
+		if (Validators.isBlank(title)) {
+			throw new IllegalArgumentException("Empty title");
+		}
+		if (numberOfPages <= 0) {
+			throw new IllegalArgumentException("Illegal number of pages: " + numberOfPages);
+		}
+		if (Validators.isEmpty(authors)) {
+			throw new IllegalArgumentException("No authors");
+		}
+	}
+
 	@Override
 	public List<String> getContributors() {
-		return null;
+		return authors;
 	}
 
 	@Override
 	public String getTitle() {
-		return null;
+		return title;
 	}
 
 	@Override
 	public boolean isPrinted() {
-		return false;
+		return true;
 	}
 
 	@Override

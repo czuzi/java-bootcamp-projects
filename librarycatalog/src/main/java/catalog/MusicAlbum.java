@@ -11,6 +11,7 @@ public class MusicAlbum implements LibraryItem {
 	private List<String> performers;
 
 	public MusicAlbum(String title, int length, List<String> composers, List<String> performers) {
+		validate(title, length, performers);
 		this.title = title;
 		this.length = length;
 		this.composers = composers;
@@ -21,18 +22,36 @@ public class MusicAlbum implements LibraryItem {
 		this(title, length, new ArrayList<>(), performers);
 	}
 
+	private void validate(String title, int length, List<String> performers) {
+		if (Validators.isBlank(title)) {
+			throw new IllegalArgumentException("Empty title");
+		}
+
+		if (length < 1) {
+			throw new IllegalArgumentException("Illegal length: " + length);
+		}
+
+		if (Validators.isEmpty(performers)) {
+			throw new IllegalArgumentException("No performer");
+		}
+
+	}
+
 	public int getLength() {
 		return length;
 	}
 
 	@Override
 	public List<String> getContributors() {
-		return null;
+		List<String> contributors = new ArrayList<>();
+		contributors.addAll(composers);
+		contributors.addAll(performers);
+		return contributors;
 	}
 
 	@Override
 	public String getTitle() {
-		return null;
+		return title;
 	}
 
 	@Override
@@ -42,6 +61,6 @@ public class MusicAlbum implements LibraryItem {
 
 	@Override
 	public boolean isAudio() {
-		return false;
+		return true;
 	}
 }

@@ -62,10 +62,10 @@ class StudentTest {
 		Student student = new Student("Kovács Sándor");
 		//When
 		student.addGrading(new Mark(MarkType.A, MATH, TUTOR));
-		student.addGrading(new Mark(MarkType.C, new Subject("történelem"), TUTOR));
+		student.addGrading(new Mark(MarkType.C, new Subject("tortenelem"), TUTOR));
 		student.addGrading(new Mark(MarkType.D, MATH, TUTOR));
 		//Then
-		assertEquals(0.0, student.calculateSubjectAverage("földrajz"));
+		assertEquals(0.0, student.calculateSubjectAverage("foldrajz"));
 
 	}
 
