@@ -58,49 +58,49 @@ class StoreTest {
         assertEquals(3600, expected.getPrice());
     }
 
-//    @Test
-//    void testGetProductByNotExistingBarcode() {
-//        Exception ex = assertThrows(IllegalArgumentException.class, () -> store.getProductByBarcode("1"));
-//        assertEquals("No product with barcode: 1", ex.getMessage());
-//    }
-//
-//    @Test
-//    void testGetProductsByCategory() {
-//        Map<ProductCategory, List<Product>> expected = store.getProductsByCategory();
-//
-//        assertEquals(3, expected.size());
-//        assertEquals(4, expected.get(ProductCategory.TOY).size());
-//        assertEquals(2, expected.get(ProductCategory.BOOK).size());
-//        assertEquals(1, expected.get(ProductCategory.CLOTHING).size());
-//    }
-//
-//    @Test
-//    void testGetCheapestProductByCategory() {
-//        Product expected = store.getCheapestProductByCategory(ProductCategory.TOY);
-//
-//        assertEquals("6789", expected.getBarcode());
-//        assertEquals("Kisautó", expected.getName());
-//        assertEquals(500, expected.getPrice());
-//        assertEquals(ProductCategory.TOY, expected.getCategory());
-//    }
-//
-//    @Test
-//    void testListProductsSortedByPrice() {
-//        List<Product> expected = store.listProductsSortedByPrice();
-//
-//        assertEquals(7, expected.size());
-//        assertEquals("Kisautó", expected.get(0).getName());
-//        assertEquals("Molnár Ferenc: A Pál utcai fiúk", expected.get(3).getName());
-//        assertEquals("Lego", expected.get(6).getName());
-//    }
-//
-//    @Test
-//    void testListProductsSortedByName() {
-//        List<Product> expected = store.listProductsSortedByName();
-//
-//        assertEquals(7, expected.size());
-//        assertEquals("Férfi nadrág", expected.get(0).getName());
-//        assertEquals("Lego", expected.get(5).getName());
-//        assertEquals("Molnár Ferenc: A Pál utcai fiúk", expected.get(6).getName());
-//    }
+    @Test
+    void testGetProductByNotExistingBarcode() {
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> store.getProductByBarcode("1"));
+        assertEquals("No product with barcode: 1", ex.getMessage());
+    }
+
+    @Test
+    void testGetProductsByCategory() {
+        Map<ProductCategory, List<Product>> expected = store.getProductsByCategory();
+
+        assertEquals(3, expected.size());
+        assertEquals(4, expected.get(ProductCategory.TOY).size());
+        assertEquals(2, expected.get(ProductCategory.BOOK).size());
+        assertEquals(1, expected.get(ProductCategory.CLOTHING).size());
+    }
+
+    @Test
+    void testGetCheapestProductByCategory() {
+        Product expected = store.getCheapestProductByCategory(ProductCategory.TOY);
+
+        assertEquals("6789", expected.getBarcode());
+        assertEquals("Kisautó", expected.getName());
+        assertEquals(500, expected.getPrice());
+        assertEquals(ProductCategory.TOY, expected.getCategory());
+    }
+
+    @Test
+    void testListProductsSortedByPrice() {
+        List<Product> expected = store.listProductsSortedByPrice();
+
+        assertEquals(7, expected.size());
+        assertEquals("Kisautó", expected.get(0).getName());
+        assertEquals("Molnár Ferenc: A Pál utcai fiúk", expected.get(3).getName());
+        assertEquals("Lego", expected.get(6).getName());
+    }
+
+    @Test
+    void testListProductsSortedByName() {
+        List<Product> expected = store.listProductsSortedByName();
+
+        assertEquals(7, expected.size());
+        assertEquals("Férfi nadrág", expected.get(0).getName());
+        assertEquals("Lego", expected.get(5).getName());
+        assertEquals("Molnár Ferenc: A Pál utcai fiúk", expected.get(6).getName());
+    }
 }

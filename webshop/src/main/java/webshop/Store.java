@@ -40,6 +40,25 @@ public class Store {
 	public Product getProductByBarcode(String barcode) {
 		return products.stream()
 				.filter(product -> product.getBarcode().equals(barcode)).
-				findAny().orElseThrow(IllegalArgumentException::new);
+				findAny().orElseThrow(() -> new IllegalArgumentException("No product with barcode: " + barcode));
+	}
+
+	public Product getCheapestProductByCategory(ProductCategory category) {
+		return products.stream()
+				.filter(product -> product.getCategory() == category)
+				.min(Comparator.comparing(Product::getPrice))
+				.orElseThrow(IllegalArgumentException::new);
+	}
+
+	public List<Product> listProductsSortedByPrice() {
+		return products.stream()
+				.sorted(Comparator.comparing(Product::getPrice))
+				.toList();
+	}
+
+	public List<Product> listProductsSortedByName() {
+		return products.stream()
+				.sorted(Comparator.comparing(Product::getName))
+				.toList();
 	}
 }
