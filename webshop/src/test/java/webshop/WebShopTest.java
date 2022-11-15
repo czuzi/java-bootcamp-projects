@@ -1,107 +1,107 @@
-//package webshop;
-//
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//
-//import java.time.LocalDateTime;
-//import java.util.ArrayList;
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//
-//class WebShopTest {
-//
-//    Product product;
-//
-//    Customer customer;
-//
-//    Store store;
-//
-//    CustomerService customerService;
-//
-//    WebShop webShop;
-//
-//    @BeforeEach
-//    void init() {
-//        customer = new Customer("Kiss József", "kissj@gmail.com");
-//        store = new Store();
-//        customerService = new CustomerService();
-//        webShop = new WebShop(store, customerService);
-//        product = new Product("1234", "Lego", 12500, ProductCategory.TOY);
-//        webShop.addProduct(product);
-//        webShop.addProduct(new Product("2345", "Gárdonyi Géza: Egri csillagok", 3600, ProductCategory.BOOK));
-//        webShop.addProduct(new Product("3456", "Labda", 1500, ProductCategory.TOY));
-//        webShop.addCustomer(customer);
-//        webShop.addCustomer(new Customer("Elek János", "elekj@gmail.com"));
-//    }
-//
-//    @Test
-//    void testCreate() {
-//        assertEquals(3, webShop.getStore().getProducts().size());
-//        assertEquals(2, webShop.getCustomerService().getCustomers().size());
-//        assertEquals(0, webShop.getCarts().size());
-//        assertEquals(0, webShop.getOrders().size());
-//    }
-//
-//    @Test
-//    void testAddCartInAnInvalidWay() {
-//        webShop.getCarts().add(new Cart(customer));
-//
-//        assertEquals(0, webShop.getCarts().size());
-//    }
-//
-//    @Test
-//    void testAddOrderInAnInvalidWay() {
-//        Map<Product, Integer> cart = new HashMap<>();
-//        Product product = new Product("1234", "Lego", 12500, ProductCategory.TOY);
-//        cart.put(product, 2);
-//        webShop.getOrders().add(new Order(3L, LocalDateTime.now(), customer, cart));
-//
-//        assertEquals(0, webShop.getOrders().size());
-//    }
-//
-//    @Test
-//    void testCreateWithNullStore() {
-//        Exception ex = assertThrows(IllegalArgumentException.class,
-//                () -> new WebShop(null, customerService));
-//        assertEquals("Store cannot be empty!", ex.getMessage());
-//    }
-//
-//    @Test
-//    void testCreateWithNullCustomerService() {
-//        Exception ex = assertThrows(IllegalArgumentException.class,
-//                () -> new WebShop(store, null));
-//        assertEquals("Customer service cannot be empty!", ex.getMessage());
-//    }
-//
-//    @Test
-//    void testBeginShopping() {
-//        webShop.beginShopping("kissj@gmail.com");
-//        List<Cart> carts = new ArrayList<>(webShop.getCarts());
-//
-//        assertEquals(1, webShop.getCarts().size());
-//        assertEquals("Kiss József", carts.get(0).getCustomer().getName());
-//        assertEquals(0, carts.get(0).getProducts().size());
-//    }
-//
-//    @Test
-//    void testBeginShoppingWithSameCustomerTwice() {
-//        webShop.beginShopping("kissj@gmail.com");
-//
-//        Exception ex = assertThrows(IllegalArgumentException.class,
-//                () -> webShop.beginShopping("kissj@gmail.com"));
-//        assertEquals("Customer with e-mail address: kissj@gmail.com has already began shopping!", ex.getMessage());
-//    }
-//
-//    @Test
-//    void testBeginShoppingWithNotExistingCustomer() {
-//        Exception ex = assertThrows(IllegalArgumentException.class,
-//                () -> webShop.beginShopping("xy@z.com"));
-//        assertEquals("No customer with e-mail address: xy@z.com", ex.getMessage());
-//    }
-//
+package webshop;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class WebShopTest {
+
+    Product product;
+
+    Customer customer;
+
+    Store store;
+
+    CustomerService customerService;
+
+    WebShop webShop;
+
+    @BeforeEach
+    void init() {
+        customer = new Customer("Kiss József", "kissj@gmail.com");
+        store = new Store();
+        customerService = new CustomerService();
+        webShop = new WebShop(store, customerService);
+        product = new Product("1234", "Lego", 12500, ProductCategory.TOY);
+        webShop.addProduct(product);
+        webShop.addProduct(new Product("2345", "Gárdonyi Géza: Egri csillagok", 3600, ProductCategory.BOOK));
+        webShop.addProduct(new Product("3456", "Labda", 1500, ProductCategory.TOY));
+        webShop.addCustomer(customer);
+        webShop.addCustomer(new Customer("Elek János", "elekj@gmail.com"));
+    }
+
+    @Test
+    void testCreate() {
+        assertEquals(3, webShop.getStore().getProducts().size());
+        assertEquals(2, webShop.getCustomerService().getCustomers().size());
+        assertEquals(0, webShop.getCarts().size());
+        assertEquals(0, webShop.getOrders().size());
+    }
+
+    @Test
+    void testAddCartInAnInvalidWay() {
+        webShop.getCarts().add(new Cart(customer));
+
+        assertEquals(0, webShop.getCarts().size());
+    }
+
+    @Test
+    void testAddOrderInAnInvalidWay() {
+        Map<Product, Integer> cart = new HashMap<>();
+        Product product = new Product("1234", "Lego", 12500, ProductCategory.TOY);
+        cart.put(product, 2);
+        webShop.getOrders().add(new Order(3L, LocalDateTime.now(), customer, cart));
+
+        assertEquals(0, webShop.getOrders().size());
+    }
+
+    @Test
+    void testCreateWithNullStore() {
+        Exception ex = assertThrows(IllegalArgumentException.class,
+                () -> new WebShop(null, customerService));
+        assertEquals("Store cannot be empty!", ex.getMessage());
+    }
+
+    @Test
+    void testCreateWithNullCustomerService() {
+        Exception ex = assertThrows(IllegalArgumentException.class,
+                () -> new WebShop(store, null));
+        assertEquals("Customer service cannot be empty!", ex.getMessage());
+    }
+
+    @Test
+    void testBeginShopping() {
+        webShop.beginShopping("kissj@gmail.com");
+        List<Cart> carts = new ArrayList<>(webShop.getCarts());
+
+        assertEquals(1, webShop.getCarts().size());
+        assertEquals("Kiss József", carts.get(0).getCustomer().getName());
+        assertEquals(0, carts.get(0).getProducts().size());
+    }
+
+    @Test
+    void testBeginShoppingWithSameCustomerTwice() {
+        webShop.beginShopping("kissj@gmail.com");
+
+        Exception ex = assertThrows(IllegalArgumentException.class,
+                () -> webShop.beginShopping("kissj@gmail.com"));
+        assertEquals("Customer with e-mail address: kissj@gmail.com has already began shopping!", ex.getMessage());
+    }
+
+    @Test
+    void testBeginShoppingWithNotExistingCustomer() {
+        Exception ex = assertThrows(IllegalArgumentException.class,
+                () -> webShop.beginShopping("xy@z.com"));
+        assertEquals("No customer with e-mail address: xy@z.com", ex.getMessage());
+    }
+
 //    @Test
 //    void testAddCartItem() {
 //        webShop.beginShopping("kissj@gmail.com");
@@ -251,4 +251,4 @@
 //        webShop.addCartItem("kissj@gmail.com", "1234", 3);
 //        webShop.order("kissj@gmail.com", LocalDateTime.of(2022, 7, 17, 11, 0));
 //    }
-//}
+}
