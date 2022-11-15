@@ -102,44 +102,44 @@ class WebShopTest {
         assertEquals("No customer with e-mail address: xy@z.com", ex.getMessage());
     }
 
-//    @Test
-//    void testAddCartItem() {
-//        webShop.beginShopping("kissj@gmail.com");
-//        webShop.addCartItem("kissj@gmail.com", "1234", 2);
-//        List<Cart> carts = new ArrayList<>(webShop.getCarts());
-//
-//        assertEquals(1, webShop.getCarts().size());
-//        assertEquals("Kiss József", carts.get(0).getCustomer().getName());
-//        assertEquals(1, carts.get(0).getProducts().size());
-//        assertEquals(true, carts.get(0).getProducts().containsKey(product));
-//        assertEquals(2, carts.get(0).getProducts().get(product));
-//    }
-//
-//    @Test
-//    void testAddCartItemWithInvalidQuantity() {
-//        webShop.beginShopping("kissj@gmail.com");
-//
-//        Exception ex = assertThrows(IllegalArgumentException.class,
-//                () -> webShop.addCartItem("kissj@gmail.com", "1234", 0));
-//        assertEquals("Quantity cannot be 0 or a negative number", ex.getMessage());
-//    }
-//
-//    @Test
-//    void testAddCartItemNotExistingCart() {
-//        Exception ex = assertThrows(IllegalArgumentException.class,
-//                () -> webShop.addCartItem("kissj@gmail.com", "1234", 2));
-//        assertEquals("Customer with e-mail address kissj@gmail.com does not have an actual cart yet.", ex.getMessage());
-//    }
-//
-//    @Test
-//    void testRejectCart() {
-//        webShop.beginShopping("kissj@gmail.com");
-//        webShop.addCartItem("kissj@gmail.com", "1234", 2);
-//        webShop.rejectCart("kissj@gmail.com");
-//
-//        assertEquals(0, webShop.getCarts().size());
-//    }
-//
+    @Test
+    void testAddCartItem() {
+        webShop.beginShopping("kissj@gmail.com");
+        webShop.addCartItem("kissj@gmail.com", "1234", 2);
+        List<Cart> carts = new ArrayList<>(webShop.getCarts());
+
+        assertEquals(1, webShop.getCarts().size());
+        assertEquals("Kiss József", carts.get(0).getCustomer().getName());
+        assertEquals(1, carts.get(0).getProducts().size());
+        assertEquals(true, carts.get(0).getProducts().containsKey(product));
+        assertEquals(2, carts.get(0).getProducts().get(product));
+    }
+
+    @Test
+    void testAddCartItemWithInvalidQuantity() {
+        webShop.beginShopping("kissj@gmail.com");
+
+        Exception ex = assertThrows(IllegalArgumentException.class,
+                () -> webShop.addCartItem("kissj@gmail.com", "1234", 0));
+        assertEquals("Quantity cannot be 0 or a negative number", ex.getMessage());
+    }
+
+    @Test
+    void testAddCartItemNotExistingCart() {
+        Exception ex = assertThrows(IllegalArgumentException.class,
+                () -> webShop.addCartItem("kissj@gmail.com", "1234", 2));
+        assertEquals("Customer with e-mail address kissj@gmail.com does not have an actual cart yet.", ex.getMessage());
+    }
+
+    @Test
+    void testRejectCart() {
+        webShop.beginShopping("kissj@gmail.com");
+        webShop.addCartItem("kissj@gmail.com", "1234", 2);
+        webShop.rejectCart("kissj@gmail.com");
+
+        assertEquals(0, webShop.getCarts().size());
+    }
+
 //    @Test
 //    void testOrder() {
 //        webShop.beginShopping("kissj@gmail.com");
