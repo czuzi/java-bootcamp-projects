@@ -183,62 +183,62 @@ class WebShopTest {
         assertEquals(1, webShop.getCustomersByProduct("1234").size());
         assertEquals(2, webShop.getCustomersByProduct("2345").size());
     }
-//
-//    @Test
-//    void testGetTotalAmounts() {
-//        addOrders();
-//        Map<Long, Integer> expected = webShop.getTotalAmounts();
-//
-//        assertEquals(25000, webShop.getTotalAmounts().get(1L));
-//        assertEquals(3600, webShop.getTotalAmounts().get(2L));
-//        assertEquals(44700, webShop.getTotalAmounts().get(3L));
-//    }
-//
-//    @Test
-//    void testGetCustomerWithMaxTotalAmount() {
-//        addOrders();
-//        Customer expected = webShop.getCustomerWithMaxTotalAmount();
-//
-//        assertEquals("Kiss József", expected.getName());
-//    }
-//
-//    @Test
-//    void testGetCustomerWithMaxTotalAmountWithEmptyList() {
-//        Exception ex = assertThrows(IllegalArgumentException.class,
-//                () -> webShop.getCustomerWithMaxTotalAmount());
-//        assertEquals("No such customer.", ex.getMessage());
-//    }
-//
-//    @Test
-//    void testListOrdersSortedByTotalAmounts() {
-//        addOrders();
-//        List<Order> expected = webShop.listOrdersSortedByTotalAmounts();
-//
-//        assertEquals(3, expected.size());
-//        assertEquals(44700, expected.get(0).getTotalAmount());
-//        assertEquals(25000, expected.get(1).getTotalAmount());
-//        assertEquals(3600, expected.get(2).getTotalAmount());
-//    }
-//
-//    @Test
-//    void testListOrdersSortedByDate() {
-//        addOrders();
-//        List<Order> expected = webShop.listOrdersSortedByDate();
-//
-//        assertEquals(3, expected.size());
-//        assertEquals(44700, expected.get(0).getTotalAmount());
-//        assertEquals(3600, expected.get(1).getTotalAmount());
-//        assertEquals(25000, expected.get(2).getTotalAmount());
-//    }
-//
-//    @Test
-//    void testHasCustomerBoughtProduct() {
-//        addOrders();
-//
-//        assertEquals(true, webShop.hasCustomerBoughtProduct("kissj@gmail.com", "1234"));
-//        assertEquals(false, webShop.hasCustomerBoughtProduct("elekj@gmail.com", "1234"));
-//    }
-//
+
+    @Test
+    void testGetTotalAmounts() {
+        addOrders();
+        Map<Long, Integer> expected = webShop.getTotalAmounts();
+
+        assertEquals(25000, webShop.getTotalAmounts().get(1L));
+        assertEquals(3600, webShop.getTotalAmounts().get(2L));
+        assertEquals(44700, webShop.getTotalAmounts().get(3L));
+    }
+
+    @Test
+    void testGetCustomerWithMaxTotalAmount() {
+        addOrders();
+        Customer expected = webShop.getCustomerWithMaxTotalAmount();
+
+        assertEquals("Kiss József", expected.getName());
+    }
+
+    @Test
+    void testGetCustomerWithMaxTotalAmountWithEmptyList() {
+        Exception ex = assertThrows(IllegalArgumentException.class,
+                () -> webShop.getCustomerWithMaxTotalAmount());
+        assertEquals("No such customer.", ex.getMessage());
+    }
+
+    @Test
+    void testListOrdersSortedByTotalAmounts() {
+        addOrders();
+        List<Order> expected = webShop.listOrdersSortedByTotalAmounts();
+
+        assertEquals(3, expected.size());
+        assertEquals(44700, expected.get(0).getTotalAmount());
+        assertEquals(25000, expected.get(1).getTotalAmount());
+        assertEquals(3600, expected.get(2).getTotalAmount());
+    }
+
+    @Test
+    void testListOrdersSortedByDate() {
+        addOrders();
+        List<Order> expected = webShop.listOrdersSortedByDate();
+
+        assertEquals(3, expected.size());
+        assertEquals(44700, expected.get(0).getTotalAmount());
+        assertEquals(3600, expected.get(1).getTotalAmount());
+        assertEquals(25000, expected.get(2).getTotalAmount());
+    }
+
+    @Test
+    void testHasCustomerBoughtProduct() {
+        addOrders();
+
+        assertEquals(true, webShop.hasCustomerBoughtProduct("kissj@gmail.com", "1234"));
+        assertEquals(false, webShop.hasCustomerBoughtProduct("elekj@gmail.com", "1234"));
+    }
+
     private void addOrders() {
         webShop.beginShopping("kissj@gmail.com");
         webShop.addCartItem("kissj@gmail.com", "1234", 2);

@@ -91,6 +91,53 @@ public class WebShop {
 		return id;
 	}
 
+	public Set<Customer> getCustomersByProduct(String barcode) {
+
+		Product product = store.getProductByBarcode(barcode);
+
+		return orders.stream()
+				.filter(order -> order.getCart().containsKey(product))
+				.map(Order::getCustomer)
+				.collect(Collectors.toSet());
+	}
+
+	public Map<Long, Integer> getTotalAmounts() {
+		Map<Long, Integer> result = new HashMap<>();
+		for (Order order: orders) {
+			if (!result.containsKey(order.getId())) {
+				result.put(order.getId(), order.getTotalAmount());
+			} else {
+				result.put(order.getId(), result.get(order.getId()) + order.getTotalAmount());
+			}
+		}
+		return result;
+	}
+
+	public Customer getCustomerWithMaxTotalAmount() {
+		return orders.stream()
+				.max(Comparator.comparing(Order::getTotalAmount))
+				.orElseThrow(() -> new IllegalArgumentException("No such customer."))
+				.getCustomer();
+	}
+
+	public List<Order> listOrdersSortedByTotalAmounts() {
+		return orders.stream()
+				.sorted(Comparator.comparing(Order::getTotalAmount).reversed())
+				.toList();
+	}
+
+	public List<Order> listOrdersSortedByDate() {
+		return orders.stream()
+				.sorted(Comparator.comparing(Order::getTimeOfOrder).reversed())
+				.toList();
+	}
+
+	public boolean hasCustomerBoughtProduct(String email, String barcode) {
+		return orders.stream()
+				.filter(order -> order.getCustomer().getEmail().equals(email))
+				.anyMatch(order -> order.getCart().containsKey(store.getProductByBarcode(barcode)));
+	}
+
 	private Cart findCart(String email) {
 		for (Cart actual: carts) {
 			if (actual.getCustomer().getEmail().equals(email)) {
@@ -117,15 +164,5 @@ public class WebShop {
 		if (ordersForCurrentCustomer >= 5) {
 			customer.setCustomerToVip();
 		}
-	}
-
-	public Set<Customer> getCustomersByProduct(String barcode) {
-
-		Product product = store.getProductByBarcode(barcode);
-
-		return orders.stream()
-				.filter(order -> order.getCart().containsKey(product))
-				.map(Order::getCustomer)
-				.collect(Collectors.toSet());
 	}
 }
