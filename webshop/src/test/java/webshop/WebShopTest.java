@@ -140,49 +140,49 @@ class WebShopTest {
         assertEquals(0, webShop.getCarts().size());
     }
 
-//    @Test
-//    void testOrder() {
-//        webShop.beginShopping("kissj@gmail.com");
-//        webShop.addCartItem("kissj@gmail.com", "1234", 2);
-//        long id = webShop.order("kissj@gmail.com", LocalDateTime.now());
-//
-//        assertEquals(1, id);
-//        assertEquals(1, webShop.getOrders().size());
-//        assertEquals(0, webShop.getCarts().size());
-//        assertEquals(CustomerCategory.SINGLE, customer.getCustomerCategory());
-//    }
-//
-//    @Test
-//    void testOrderVip() {
-//        for (int i = 1; i <= 5; i++) {
-//            webShop.beginShopping("kissj@gmail.com");
-//            webShop.addCartItem("kissj@gmail.com", "1234", 2);
-//            webShop.order("kissj@gmail.com", LocalDateTime.now());
-//        }
-//
-//        assertEquals(CustomerCategory.VIP, customer.getCustomerCategory());
-//    }
-//
-//    @Test
-//    void testOrderWithNotExistingCustomer() {
-//        Exception ex = assertThrows(IllegalArgumentException.class,
-//                () -> webShop.order("xy@z.com",  LocalDateTime.now()));
-//        assertEquals("No customer with e-mail address: xy@z.com", ex.getMessage());
-//    }
-//
-//    @Test
-//    void testOrderWithNotExistingCart() {
-//        Exception ex = assertThrows(IllegalArgumentException.class,
-//                () -> webShop.order("kissj@gmail.com", LocalDateTime.now()));
-//        assertEquals("Customer with e-mail address kissj@gmail.com does not have an actual cart yet.", ex.getMessage());
-//    }
-//
-//    @Test
-//    void testGetCustomersByProduct() {
-//        addOrders();
-//        assertEquals(1, webShop.getCustomersByProduct("1234").size());
-//        assertEquals(2, webShop.getCustomersByProduct("2345").size());
-//    }
+    @Test
+    void testOrder() {
+        webShop.beginShopping("kissj@gmail.com");
+        webShop.addCartItem("kissj@gmail.com", "1234", 2);
+        long id = webShop.order("kissj@gmail.com", LocalDateTime.now());
+
+        assertEquals(1, id);
+        assertEquals(1, webShop.getOrders().size());
+        assertEquals(0, webShop.getCarts().size());
+        assertEquals(CustomerCategory.SINGLE, customer.getCustomerCategory());
+    }
+
+    @Test
+    void testOrderVip() {
+        for (int i = 1; i <= 5; i++) {
+            webShop.beginShopping("kissj@gmail.com");
+            webShop.addCartItem("kissj@gmail.com", "1234", 2);
+            webShop.order("kissj@gmail.com", LocalDateTime.now());
+        }
+
+        assertEquals(CustomerCategory.VIP, customer.getCustomerCategory());
+    }
+
+    @Test
+    void testOrderWithNotExistingCustomer() {
+        Exception ex = assertThrows(IllegalArgumentException.class,
+                () -> webShop.order("xy@z.com",  LocalDateTime.now()));
+        assertEquals("No customer with e-mail address: xy@z.com", ex.getMessage());
+    }
+
+    @Test
+    void testOrderWithNotExistingCart() {
+        Exception ex = assertThrows(IllegalArgumentException.class,
+                () -> webShop.order("kissj@gmail.com", LocalDateTime.now()));
+        assertEquals("Customer with e-mail address kissj@gmail.com does not have an actual cart yet.", ex.getMessage());
+    }
+
+    @Test
+    void testGetCustomersByProduct() {
+        addOrders();
+        assertEquals(1, webShop.getCustomersByProduct("1234").size());
+        assertEquals(2, webShop.getCustomersByProduct("2345").size());
+    }
 //
 //    @Test
 //    void testGetTotalAmounts() {
@@ -239,16 +239,16 @@ class WebShopTest {
 //        assertEquals(false, webShop.hasCustomerBoughtProduct("elekj@gmail.com", "1234"));
 //    }
 //
-//    private void addOrders() {
-//        webShop.beginShopping("kissj@gmail.com");
-//        webShop.addCartItem("kissj@gmail.com", "1234", 2);
-//        webShop.order("kissj@gmail.com", LocalDateTime.of(2022, 7, 15, 9, 0));
-//        webShop.beginShopping("elekj@gmail.com");
-//        webShop.addCartItem("elekj@gmail.com", "2345", 1);
-//        webShop.order("elekj@gmail.com", LocalDateTime.of(2022, 7, 16, 10, 0));
-//        webShop.beginShopping("kissj@gmail.com");
-//        webShop.addCartItem("kissj@gmail.com", "2345", 2);
-//        webShop.addCartItem("kissj@gmail.com", "1234", 3);
-//        webShop.order("kissj@gmail.com", LocalDateTime.of(2022, 7, 17, 11, 0));
-//    }
+    private void addOrders() {
+        webShop.beginShopping("kissj@gmail.com");
+        webShop.addCartItem("kissj@gmail.com", "1234", 2);
+        webShop.order("kissj@gmail.com", LocalDateTime.of(2022, 7, 15, 9, 0));
+        webShop.beginShopping("elekj@gmail.com");
+        webShop.addCartItem("elekj@gmail.com", "2345", 1);
+        webShop.order("elekj@gmail.com", LocalDateTime.of(2022, 7, 16, 10, 0));
+        webShop.beginShopping("kissj@gmail.com");
+        webShop.addCartItem("kissj@gmail.com", "2345", 2);
+        webShop.addCartItem("kissj@gmail.com", "1234", 3);
+        webShop.order("kissj@gmail.com", LocalDateTime.of(2022, 7, 17, 11, 0));
+    }
 }

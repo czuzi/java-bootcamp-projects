@@ -1,11 +1,8 @@
 package webshop;
 
-import java.awt.color.ProfileDataException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class WebShop {
 
@@ -54,16 +51,7 @@ public class WebShop {
 	}
 
 	public void beginShopping(String email) {
-		Customer customer = null;
-		for (Customer actual: customerService.getCustomers()) {
-			if (actual.getEmail().equals(email)) {
-				customer = actual;
-			}
-		}
-		if (customer == null) {
-			throw new IllegalArgumentException("No customer with e-mail address: " + email);
-		}
-
+		Customer customer = findCustomer(email);
 		for (Cart cart: carts) {
 			if (cart.getCustomer().getEmail().equals(email)) {
 				throw new IllegalArgumentException("Customer with e-mail address: " + email + " has already began shopping!");
@@ -73,50 +61,71 @@ public class WebShop {
 	}
 
 	public void addCartItem(String email, String barcode, int amount) {
-		Customer customer = null;
-		Product product = null;
-		Cart cart = null;
-
-		for (Cart actual: carts) {
-			if (actual.getCustomer().getEmail().equals(email)) {
-				cart = actual;
-			}
-		}
-
-		for (Customer actual: customerService.getCustomers()) {
-			if (actual.getEmail().equals(email)) {
-				customer = actual;
-			}
-		}
-		for (Product actual: store.getProducts()) {
-			if (actual.getBarcode().equals(barcode)) {
-				product = actual;
-			}
-		}
-
-		if (customer == null) {
-			throw new IllegalArgumentException("Customer with e-mail address " + email + " does not have an actual cart yet.");
-		}
 		if (amount < 1) {
 			throw new IllegalArgumentException("Quantity cannot be 0 or a negative number");
 		}
 
-		if (cart == null) {
-			throw new IllegalArgumentException("Customer with e-mail address " + email + " does not have an actual cart yet.");
-		}
+		Cart cart = findCart(email);
+
+		Product product = store.getProductByBarcode(barcode);
+
 		cart.addCartItem(product, amount);
 		carts.add(cart);
 	}
 
 	public void rejectCart(String email) {
-		for (Cart cart: carts) {
-			if (cart.getCustomer().getEmail().equals(email)) {
-				carts.remove(cart);
+		carts.removeIf(cart -> cart.getCustomer().getEmail().equals(email));
+	}
+
+	public long order(String email, LocalDateTime localDateTime) {
+		long id = orders.size() + 1L;
+		Customer customer = findCustomer(email);
+		Cart cart = findCart(email);
+
+		orders.add(new Order(id, localDateTime, cart.getCustomer(), cart.getProducts()));
+
+		carts.remove(cart);
+
+		checkAndSetVipStatus(email, customer);
+
+		return id;
+	}
+
+	private Cart findCart(String email) {
+		for (Cart actual: carts) {
+			if (actual.getCustomer().getEmail().equals(email)) {
+				return actual;
 			}
+		}
+		throw new IllegalArgumentException("Customer with e-mail address " + email + " does not have an actual cart yet.");
+	}
+
+	private Customer findCustomer(String email) {
+		for (Customer actual: customerService.getCustomers()) {
+			if (actual.getEmail().equals(email)) {
+				return actual;
+			}
+		}
+		throw new IllegalArgumentException("No customer with e-mail address: " + email);
+	}
+
+	private void checkAndSetVipStatus(String email, Customer customer) {
+		long ordersForCurrentCustomer = orders.stream()
+				.filter(o -> o.getCustomer().getEmail().equals(email))
+				.count();
+
+		if (ordersForCurrentCustomer >= 5) {
+			customer.setCustomerToVip();
 		}
 	}
 
-//	public long order(String email, LocalDateTime localDateTime) {
-//		return 0;
-//	}
+	public Set<Customer> getCustomersByProduct(String barcode) {
+
+		Product product = store.getProductByBarcode(barcode);
+
+		return orders.stream()
+				.filter(order -> order.getCart().containsKey(product))
+				.map(Order::getCustomer)
+				.collect(Collectors.toSet());
+	}
 }
