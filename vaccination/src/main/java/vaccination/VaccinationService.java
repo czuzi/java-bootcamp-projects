@@ -1,19 +1,14 @@
 package vaccination;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Scanner;
-
 public class VaccinationService {
 
 	RegistrationRepository registrationRepository;
 
 
-	public void registraion(String name, String zip, int age, String email, String emailAgain, String ssn) {
+	public void registration(String name, String zip, int age, String email, String emailAgain, String ssn) {
 		validateIsNotEmpty(name, zip, age, email, emailAgain, ssn);
 		validateEmail(email, emailAgain);
 		cdvCheck(ssn);
-		String city = findCity(zip);
 		registrationRepository.saveRegistration(name, zip, age, email, emailAgain, ssn);
 	}
 
@@ -35,20 +30,6 @@ public class VaccinationService {
 	private void validateEmail(String email, String emailAgain) {
 		if (!(email.equalsIgnoreCase(emailAgain) && email.length() > 3 && email.contains("@"))) {
 			throw new IllegalArgumentException("Invalid Email");
-		}
-	}
-
-	private String findCity(String zip) {
-		try (Scanner sc = new Scanner(Path.of("src/main/resources/zip.csv"))) {
-			while (sc.hasNextLine()) {
-				String[] split = sc.nextLine().split(";");
-				if (split[0].equals(zip)) {
-					return split[1];
-				}
-			}
-			throw new IllegalArgumentException("Invalid zip code");
-		} catch (IOException ioe) {
-			throw new IllegalStateException("Cannot read file");
 		}
 	}
 

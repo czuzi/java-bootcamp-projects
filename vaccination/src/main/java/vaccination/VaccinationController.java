@@ -47,6 +47,6 @@ public class VaccinationController {
 		String emailAgain = sc.nextLine();
 		String ssn = sc.nextLine();
 
-		vaccinationService.registraion(name, zip, age, email, emailAgain, ssn);
+		vaccinationService.registration(name, zip, age, email, emailAgain, ssn);
 	}
 }

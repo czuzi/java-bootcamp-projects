@@ -7,7 +7,7 @@ public class Citizen {
 	private long id;
 
 	private String name;
-	private String zip;
+	private City city;
 	private int age;
 	private String email;
 	private String ssn;
@@ -30,8 +30,8 @@ public class Citizen {
 		return name;
 	}
 
-	public String getZip() {
-		return zip;
+	public City getCity() {
+		return city;
 	}
 
 	public int getAge() {
