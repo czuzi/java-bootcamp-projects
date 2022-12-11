@@ -35,9 +35,9 @@ public class VaccinationService {
 				String[] lineSplit = fileScanner.nextLine().split(";");
 				String name = lineSplit[0];
 				String zip = lineSplit[1];
-				int age = Integer.parseInt(lineSplit[3]);
-				String email = lineSplit[4];
-				String ssn = lineSplit[5];
+				int age = Integer.parseInt(lineSplit[2]);
+				String email = lineSplit[3];
+				String ssn = lineSplit[4];
 				validations(name, zip, age, email, ssn);
 				registrationRepository.saveRegistration(name, zip, age, email, ssn);
 			}
