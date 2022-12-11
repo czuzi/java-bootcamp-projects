@@ -65,4 +65,9 @@ public class Citizen {
 	public int hashCode() {
 		return Objects.hash(ssn);
 	}
+
+	@Override
+	public String toString() {
+		return name + ";" + zip + ";" + age + ";" + email + ";" + ssn;
+	}
 }

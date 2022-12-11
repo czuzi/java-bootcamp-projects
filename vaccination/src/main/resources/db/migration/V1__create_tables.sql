@@ -3,7 +3,7 @@ create table if not exists cities (
 	zip smallint(4) not null,
 	city varchar(40) not null,
 	district varchar(40),
-	CONSTRAINT cities_pk PRIMARY KEY (id_city)
+	constraint cities_pk primary key (id_city)
 );
 
 create table if not exists citizens(
@@ -14,7 +14,7 @@ create table if not exists citizens(
 	email varchar(255),
 	snn varchar(10),
 	constraint citizens_pk primary key (id_citizen),
-	CONSTRAINT citizens_FK FOREIGN KEY (city_id) REFERENCES cities(id_city)
+	constraint citizens_FK foreign key (city_id) references cities(id_city)
 );
 
 create table if not exists vaccinations (
@@ -25,5 +25,5 @@ create table if not exists vaccinations (
 	status varchar(10) not null,
 	note varchar(50),
 	constraint vaccinations_pk primary key (id_vaccination),
-	CONSTRAINT vaccinations_FK FOREIGN KEY (citizen_id) REFERENCES citizens(id_citizen)
+	constraint vaccinations_FK foreign key (citizen_id) references citizens(id_citizen)
 );

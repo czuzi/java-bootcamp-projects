@@ -1,13 +1,16 @@
 package vaccination;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 
 public class VaccinationService {
 
 	RegistrationRepository registrationRepository = new RegistrationRepository();
-
 
 	public void registration(Scanner sc) {
 		System.out.println("enter your name");
@@ -99,6 +102,19 @@ public class VaccinationService {
 			if (value.isEmpty()) {
 				throw new IllegalArgumentException("Field cannot be empty");
 			}
+		}
+	}
+
+	public void generate(Scanner sc) {
+		System.out.println("Enter a zip code to generate file");
+		String zip = sc.nextLine();
+		System.out.println("Name the file");
+		String fileName = sc.nextLine();
+		List<String> citizens = registrationRepository.findCitizensByZip(zip);
+		try {
+			Files.write(Paths.get(fileName + ".csv"), citizens);
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
 	}
 }

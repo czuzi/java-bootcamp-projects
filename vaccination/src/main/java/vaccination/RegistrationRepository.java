@@ -1,6 +1,7 @@
 package vaccination;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import java.util.List;
 
 public class RegistrationRepository {
 
@@ -17,13 +18,31 @@ public class RegistrationRepository {
 				name, city.id(), age, email, ssn);
 	}
 
+
+
 	private City findCityByZipCode(String zip) {
-		//TODO: throw error if zip code not found
-		return jdbcTemplate.queryForObject("select * from cities where zip = ? limit 1",
+		City city = jdbcTemplate.queryForObject("select * from cities where zip = ? limit 1",
 				(rs, rowNum) -> new City(
 						rs.getLong("id_city"),
 						rs.getString("zip"),
 						rs.getString("city"),
 						rs.getString("district")), zip);
+
+		if (city == null) {
+			throw new IllegalArgumentException("Cannot find city with this postal code");
+		}
+		return city;
+	}
+
+	public List<String> findCitizensByZip(String zip) {
+		City city = findCityByZipCode(zip);
+		return jdbcTemplate.query("select * from citizens where city_id = ?",
+				((rs, rowNum) -> new Citizen(
+						rs.getString("citizen_name"),
+						zip,
+						rs.getInt("age"),
+						rs.getString("email"),
+						rs.getString("snn")
+				).toString()), city.id());
 	}
 }
