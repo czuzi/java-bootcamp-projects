@@ -1,10 +1,14 @@
 package vaccination;
 
+import org.mariadb.jdbc.MariaDbDataSource;
+
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class VaccinationController {
 
-	private VaccinationService vaccinationService;
+	private VaccinationService vaccinationService = new VaccinationService();
 	private Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {
@@ -17,13 +21,15 @@ public class VaccinationController {
 	}
 
 	private void createMenu() {
-		System.out.println("Select option:");
-		System.out.println("1.Registration");
-		System.out.println("2. Bulk registration");
-		System.out.println("3. Generate");
-		System.out.println("4. Vaccination");
-		System.out.println("5. Failed vaccination");
-		System.out.println("6. Report");
+		System.out.println("""
+				Select option:
+				1. Registration
+				2. Bulk registration
+				3. Generate
+				4. Vaccination
+				5. Failed vaccination
+				6. Report""");
+		
 
 		int input = Integer.parseInt(sc.nextLine());
 		if (input >= 1 && input <= 6) {
@@ -35,18 +41,8 @@ public class VaccinationController {
 
 	private void selectionLoop(int input) {
 		switch (input) {
-			case 1 -> registration();
+			case 1 -> vaccinationService.registration(sc);
+			case 2 -> vaccinationService.bulkRegistration(sc);
 		}
-	}
-
-	private void registration() {
-		String name = sc.nextLine();
-		String zip = sc.nextLine();
-		int age = Integer.parseInt(sc.nextLine());
-		String email = sc.nextLine();
-		String emailAgain = sc.nextLine();
-		String ssn = sc.nextLine();
-
-		vaccinationService.registration(name, zip, age, email, emailAgain, ssn);
 	}
 }

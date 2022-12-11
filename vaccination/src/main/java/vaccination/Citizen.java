@@ -4,11 +4,10 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Citizen {
-	private long id;
-
+	private Long id;
 	private String name;
-	private City city;
-	private int age;
+	private String zip;
+	private Integer age;
 	private String email;
 	private String ssn;
 	private Integer numberOfVaccination;
@@ -22,7 +21,7 @@ public class Citizen {
 		this.ssn = ssn;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -30,11 +29,11 @@ public class Citizen {
 		return name;
 	}
 
-	public City getCity() {
-		return city;
+	public String getZip() {
+		return zip;
 	}
 
-	public int getAge() {
+	public Integer getAge() {
 		return age;
 	}
 
