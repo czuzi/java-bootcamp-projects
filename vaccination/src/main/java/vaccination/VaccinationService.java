@@ -1,10 +1,11 @@
 package vaccination;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -111,10 +112,16 @@ public class VaccinationService {
 		System.out.println("Name the file");
 		String fileName = sc.nextLine();
 		List<String> citizens = registrationRepository.findCitizensByZip(zip);
+		List<String> result = new ArrayList<>();
+		LocalTime startTime = LocalTime.of(8, 0);
+		for (String citizen: citizens) {
+			result.add(startTime.toString() + citizen);
+			startTime = startTime.plusMinutes(30);
+		}
 		try {
-			Files.write(Paths.get(fileName + ".csv"), citizens);
+			Files.write(Paths.get(fileName + ".csv"), result);
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			throw new IllegalStateException("Cannot create file");
 		}
 	}
 }

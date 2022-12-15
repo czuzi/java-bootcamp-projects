@@ -36,7 +36,7 @@ public class RegistrationRepository {
 
 	public List<String> findCitizensByZip(String zip) {
 		City city = findCityByZipCode(zip);
-		return jdbcTemplate.query("select * from citizens where city_id = ?",
+		return jdbcTemplate.query("select * from citizens where city_id = ? order by age desc limit 16",
 				((rs, rowNum) -> new Citizen(
 						rs.getString("citizen_name"),
 						zip,

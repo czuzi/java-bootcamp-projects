@@ -1,5 +1,6 @@
 package vaccination;
 
+import org.flywaydb.core.Flyway;
 import org.mariadb.jdbc.MariaDbDataSource;
 
 import java.sql.SQLException;
@@ -20,6 +21,8 @@ public class DataSourceInit {
 		}catch (SQLException se){
 			throw new IllegalStateException("Cannot connect!",se);
 		}
+//		Flyway flyway = Flyway.configure().dataSource(dataSource).load();
+//		flyway.migrate();
 	}
 
 	public MariaDbDataSource getDataSource() {
