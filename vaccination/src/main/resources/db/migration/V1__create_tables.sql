@@ -13,6 +13,8 @@ create table if not exists citizens(
 	age bigint not null,
 	email varchar(255),
 	snn varchar(10),
+	number_of_vaccination  bigint,
+
 	constraint citizens_pk primary key (id_citizen),
 	constraint citizens_FK foreign key (city_id) references cities(id_city)
 );
